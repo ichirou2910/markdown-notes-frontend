@@ -2,7 +2,6 @@ import Editor from "components/Editor";
 import Preview from "components/Preview";
 import React from "react";
 import { io, Socket } from "socket.io-client";
-import _ from 'lodash';
 
 import './NotesView.scss';
 
@@ -15,7 +14,7 @@ export enum NotesLayoutEnum {
 export default function NotesView() {
   const [socket, setSocket] = React.useState<Socket>();
   const [content, setContent] = React.useState("");
-  const [layout, setLayout] = React.useState(NotesLayoutEnum.VERTICAL);
+  const [layout, setLayout] = React.useState(NotesLayoutEnum.EDITOR_ONLY);
 
   const handleContentSync = (value: string) => {
     console.log(value);
@@ -23,7 +22,6 @@ export default function NotesView() {
 
   const handleContentChange = React.useCallback((value: string) => {
     setContent(value)
-    _.debounce(handleContentSync, 1000);
   }, []);
 
   React.useEffect(() => {
